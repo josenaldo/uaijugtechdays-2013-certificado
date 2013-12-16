@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="certificado" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="acb27175-17d4-4a64-b043-975023dd6dd5">
 	<property name="ireport.zoom" value="1.0245201830476058"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="96"/>
 	<property name="ireport.background.image.properties" value="true,false,1.0,-8,-8,0,0,858,625"/>
 	<style name="texto" mode="Transparent" fontSize="28" isUnderline="true"/>
 	<queryString>
@@ -34,7 +34,7 @@
 				<textElement textAlignment="Center">
 					<font size="16" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Certificamos, para os devidos fins, que " + $F{Nome} + " participou do UaiJUG techDays 2013, " + "realizado pelo UaiJUG nos dias 20 e 30 de novembro de 2013 na " + "Universidade Federal de Uberlândia, cumprindo uma carga horária de 20 horas."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Certificamos, para os devidos fins, que " + $F{Nome} + " participou do UaiJUG techDays 2013, " + "realizado pelo UaiJUG nos dias 29 e 30 de novembro de 2013 na " + "Universidade Federal de Uberlândia, cumprindo uma carga horária de 20 horas."]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="45" y="294" width="755" height="36" uuid="1f9bf0d3-2e98-401b-8095-8b2f079be47e"/>
@@ -59,14 +59,23 @@
 				<text><![CDATA[Josenaldo de Oliveira Matos Filho]]></text>
 			</staticText>
 			<line>
-				<reportElement x="117" y="357" width="179" height="1" uuid="b3cc3b2a-af8f-44d6-8829-d13f554ab9a2"/>
+				<reportElement x="117" y="358" width="179" height="1" uuid="b3cc3b2a-af8f-44d6-8829-d13f554ab9a2"/>
 			</line>
 			<line>
 				<reportElement x="327" y="358" width="179" height="1" uuid="7b7d969c-e899-4f92-9c21-fffd4f54e711"/>
 			</line>
 			<line>
-				<reportElement x="537" y="356" width="179" height="1" uuid="77803f5f-7248-4ff7-be82-3abef4161409"/>
+				<reportElement x="537" y="358" width="179" height="1" uuid="77803f5f-7248-4ff7-be82-3abef4161409"/>
 			</line>
+		</band>
+		<band height="595">
+			<break>
+				<reportElement x="0" y="0" width="100" height="1" uuid="6503af42-8475-431e-be51-afd6c1b4e72d"/>
+			</break>
+			<image>
+				<reportElement x="0" y="0" width="842" height="595" uuid="884861e7-d6c2-4999-8cb6-ca153444d431"/>
+				<imageExpression><![CDATA["D:\\Dropbox\\Repositorio\\github\\uaijugtechdays-2013-certificado\\certificado_page2.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</detail>
 	<columnFooter>
