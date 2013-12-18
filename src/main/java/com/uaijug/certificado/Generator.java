@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.uaijug.certificado.module.BasicConfigurationTestModule;
+import com.uaijug.certificado.module.BasicConfigurationModule;
 import com.uaijug.certificado.module.RepositoryModule;
 
 public class Generator {
@@ -26,10 +26,11 @@ public class Generator {
 	}
 
 	private void init() throws Exception {
-		init(new BasicConfigurationTestModule(), new RepositoryModule());
+		this.init(new BasicConfigurationModule(), new RepositoryModule());
 	}
 
 	private void init(AbstractModule... abstractModules) throws Exception {
 		Injector injector = Guice.createInjector(abstractModules);
 	}
+
 }

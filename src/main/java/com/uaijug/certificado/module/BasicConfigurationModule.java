@@ -5,6 +5,7 @@ import com.uaijug.certificado.config.ConfigDatabaseDriver;
 import com.uaijug.certificado.config.ConfigDatabasePassword;
 import com.uaijug.certificado.config.ConfigDatabaseUrl;
 import com.uaijug.certificado.config.ConfigDatabaseUser;
+import com.uaijug.certificado.config.ConfigParticipantReportTemplate;
 import com.uaijug.certificado.config.ConfigPersistenceUnit;
 
 public class BasicConfigurationModule extends AbstractModule {
@@ -27,6 +28,10 @@ public class BasicConfigurationModule extends AbstractModule {
 
 		this.bind(String.class).annotatedWith(ConfigDatabasePassword.class)
 				.toInstance("");
+
+		this.bind(String.class)
+				.annotatedWith(ConfigParticipantReportTemplate.class)
+				.toInstance("Participant.jrxml");
 	}
 
 }

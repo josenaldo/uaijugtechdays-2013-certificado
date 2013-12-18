@@ -5,6 +5,7 @@ import com.uaijug.certificado.config.ConfigDatabaseDriver;
 import com.uaijug.certificado.config.ConfigDatabasePassword;
 import com.uaijug.certificado.config.ConfigDatabaseUrl;
 import com.uaijug.certificado.config.ConfigDatabaseUser;
+import com.uaijug.certificado.config.ConfigParticipantReportTemplate;
 import com.uaijug.certificado.config.ConfigPersistenceUnit;
 import com.uaijug.certificado.test.config.ConfigTestDataset;
 
@@ -31,6 +32,10 @@ public class BasicConfigurationTestModule extends AbstractModule {
 				.annotatedWith(ConfigTestDataset.class)
 				.toInstance(
 						"src/integration-test/resources/database/database-default.xml");
+
+		this.bind(String.class)
+				.annotatedWith(ConfigParticipantReportTemplate.class)
+				.toInstance("report/Participant.jrxml");
 	}
 
 }
