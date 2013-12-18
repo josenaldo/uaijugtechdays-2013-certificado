@@ -3,11 +3,11 @@ package com.uaijug.certificado.service;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import com.uaijug.certificado.persistence.ParticipantDao;
+import com.uaijug.certificado.repository.ParticipantRepository;
 
 @Singleton
 public class ParticipantService {
 
 	@Inject
-	private ParticipantDao participantDao;
+	private ParticipantRepository participantDao;
 }

@@ -6,27 +6,31 @@ import com.uaijug.certificado.config.ConfigDatabasePassword;
 import com.uaijug.certificado.config.ConfigDatabaseUrl;
 import com.uaijug.certificado.config.ConfigDatabaseUser;
 import com.uaijug.certificado.config.ConfigPersistenceUnit;
+import com.uaijug.certificado.test.config.ConfigTestDataset;
 
-public class BasicConfigurationModule extends AbstractModule {
+public class BasicConfigurationTestModule extends AbstractModule {
 
 	@Override
 	protected void configure() {
 		this.bind(String.class).annotatedWith(ConfigPersistenceUnit.class)
-				.toInstance("CertificadosPU");
+				.toInstance("CertificadosPUTest");
 
 		this.bind(String.class).annotatedWith(ConfigDatabaseDriver.class)
 				.toInstance("org.hsqldb.jdbcDriver");
 
-		this.bind(String.class)
-				.annotatedWith(ConfigDatabaseUrl.class)
-				.toInstance(
-						"jdbc:hsqldb:file:./db/prod/certificados.db;shutdown=true");
+		this.bind(String.class).annotatedWith(ConfigDatabaseUrl.class)
+				.toInstance("jdbc:hsqldb:mem:certificados");
 
 		this.bind(String.class).annotatedWith(ConfigDatabaseUser.class)
 				.toInstance("sa");
 
 		this.bind(String.class).annotatedWith(ConfigDatabasePassword.class)
 				.toInstance("");
+
+		this.bind(String.class)
+				.annotatedWith(ConfigTestDataset.class)
+				.toInstance(
+						"src/integration-test/resources/database/database-default.xml");
 	}
 
 }

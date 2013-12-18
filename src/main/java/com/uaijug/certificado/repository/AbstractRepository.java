@@ -1,4 +1,4 @@
-package com.uaijug.certificado.persistence.jpa;
+package com.uaijug.certificado.repository;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -10,29 +10,27 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
-import com.uaijug.certificado.persistence.GenericDao;
-
-public abstract class GenericDaoJpa<T, ID> implements GenericDao<T, ID> {
+public abstract class AbstractRepository<T, ID> {
 
 	@Inject
 	private EntityManagerFactory entityManagerFactory;
 
-	private final Class<T> type;
+	private Class<T> type;
 
 	public EntityManager getEntityManager() {
-		EntityManager em = entityManagerFactory.createEntityManager();
+		EntityManager em = this.entityManagerFactory.createEntityManager();
 		return em;
 	}
 
 	@SuppressWarnings("unchecked")
-	public GenericDaoJpa() {
-		Type t = getClass().getGenericSuperclass();
+	public AbstractRepository() {
+		Type t = this.getClass().getGenericSuperclass();
 		ParameterizedType pt = (ParameterizedType) t;
-		type = (Class<T>) pt.getActualTypeArguments()[0];
+		this.type = (Class<T>) pt.getActualTypeArguments()[0];
 	}
 
 	public T create(final T t) {
-		EntityManager em = getEntityManager();
+		EntityManager em = this.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 
 		try {
@@ -50,7 +48,7 @@ public abstract class GenericDaoJpa<T, ID> implements GenericDao<T, ID> {
 	}
 
 	public T update(final T t) {
-		EntityManager em = getEntityManager();
+		EntityManager em = this.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 
 		try {
@@ -67,14 +65,14 @@ public abstract class GenericDaoJpa<T, ID> implements GenericDao<T, ID> {
 		return t;
 	}
 
-	public void delete(final T t) {
+	public void delete(final ID id) {
 
-		EntityManager em = getEntityManager();
+		EntityManager em = this.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 
 		try {
 			tx.begin();
-			em.remove(t);
+			em.remove(em.getReference(this.type, id));
 			tx.commit();
 		} catch (RuntimeException e) {
 			tx.rollback();
@@ -86,15 +84,15 @@ public abstract class GenericDaoJpa<T, ID> implements GenericDao<T, ID> {
 	}
 
 	public T find(final ID id) {
-		EntityManager em = getEntityManager();
+		EntityManager em = this.getEntityManager();
 
-		return em.find(type, id);
+		return em.find(this.type, id);
 	}
 
 	public List<T> findAll() {
-		EntityManager em = getEntityManager();
+		EntityManager em = this.getEntityManager();
 		try {
-			Query query = em.createQuery("from " + type.getName() + " t");
+			Query query = em.createQuery("from " + this.type.getName() + " t");
 
 			@SuppressWarnings("unchecked")
 			List<T> items = query.getResultList();

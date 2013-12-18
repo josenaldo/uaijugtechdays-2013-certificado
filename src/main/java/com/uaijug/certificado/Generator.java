@@ -5,8 +5,8 @@ import org.apache.log4j.Logger;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.uaijug.certificado.module.BasicConfigurationModule;
-import com.uaijug.certificado.module.PersistenceModule;
+import com.uaijug.certificado.module.BasicConfigurationTestModule;
+import com.uaijug.certificado.module.RepositoryModule;
 
 public class Generator {
 
@@ -20,13 +20,13 @@ public class Generator {
 			generator.init();
 
 		} catch (Exception e) {
-			log.error("Um erro derrubou o servidor de impressão: ", e);
+			log.error("Um erro derrubou o servidor de impressï¿½o: ", e);
 			System.exit(1);
 		}
 	}
 
 	private void init() throws Exception {
-		init(new BasicConfigurationModule(), new PersistenceModule());
+		init(new BasicConfigurationTestModule(), new RepositoryModule());
 	}
 
 	private void init(AbstractModule... abstractModules) throws Exception {
