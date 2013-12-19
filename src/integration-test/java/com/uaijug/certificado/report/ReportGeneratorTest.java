@@ -1,5 +1,9 @@
 package com.uaijug.certificado.report;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 
@@ -30,7 +34,21 @@ public class ReportGeneratorTest extends AbstractIntegrationTest {
 	public void test() throws FileNotFoundException, JRException {
 		List<Participant> participants = this.participantRepository.findAll();
 
-		this.reportGenerator.generateParticipantReport(participants);
+		for (Participant participant : participants) {
+			this.reportGenerator.generateParticipantReport(participant);
+		}
+
+		String reportPath = null;
+		File reportFile = null;
+
+		for (Participant participant : participants) {
+			reportPath = this.reportGenerator.getReportPath(participant);
+
+			reportFile = new File(reportPath);
+
+			assertThat("Arquivo não foi gerado", reportFile.exists(), is(true));
+		}
+
 	}
 
 }

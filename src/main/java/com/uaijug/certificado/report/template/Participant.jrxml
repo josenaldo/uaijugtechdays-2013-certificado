@@ -2,11 +2,11 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="certificado" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="acb27175-17d4-4a64-b043-975023dd6dd5">
 	<property name="ireport.zoom" value="1.0245201830476058"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1288"/>
+	<property name="ireport.y" value="1056"/>
 	<property name="ireport.background.image.properties" value="true,false,1.0,-8,-8,0,0,858,625"/>
 	<style name="texto" mode="Transparent" fontSize="28" isUnderline="true"/>
-	<parameter name="BACKGROUND1" class="java.lang.String"/>
-	<parameter name="BACKGROUND2" class="java.lang.String"/>
+	<parameter name="BACKGROUND1" class="java.io.InputStream"/>
+	<parameter name="BACKGROUND2" class="java.io.InputStream"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -18,7 +18,7 @@
 	</field>
 	<background>
 		<band height="595" splitType="Stretch">
-			<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+			<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" isUsingCache="true">
 				<reportElement mode="Transparent" x="0" y="0" width="842" height="595" uuid="8daf8eb7-5d6a-4fc5-b206-4f7c889d22de"/>
 				<imageExpression><![CDATA[$P{BACKGROUND1}]]></imageExpression>
 			</image>
@@ -54,7 +54,7 @@
 			<break>
 				<reportElement x="0" y="0" width="100" height="1" uuid="6503af42-8475-431e-be51-afd6c1b4e72d"/>
 			</break>
-			<image>
+			<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" isUsingCache="true">
 				<reportElement x="0" y="0" width="842" height="595" uuid="884861e7-d6c2-4999-8cb6-ca153444d431"/>
 				<imageExpression><![CDATA[$P{BACKGROUND2}]]></imageExpression>
 			</image>

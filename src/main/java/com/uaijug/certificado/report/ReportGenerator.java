@@ -3,8 +3,8 @@ package com.uaijug.certificado.report;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -18,60 +18,78 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.view.JasperViewer;
 
-import org.dbunit.util.Base64;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.log4j.Logger;
 
-import com.uaijug.certificado.config.ConfigParticipantReportTemplate;
+import com.uaijug.certificado.config.ConfigReportParticipantTemplate;
+import com.uaijug.certificado.config.ConfigReportBackgroundPage1;
+import com.uaijug.certificado.config.ConfigReportBackgroundPage2;
+import com.uaijug.certificado.config.ConfigReportTemplateDir;
 import com.uaijug.certificado.model.Participant;
 
 @Singleton
 public class ReportGenerator {
 
+	private static Logger log = Logger.getLogger(ReportGenerator.class);
+
 	@Inject
-	@ConfigParticipantReportTemplate
+	@ConfigReportParticipantTemplate
 	private String participantReportTemplate;
 
-	public void generateParticipantReport(List<Participant> participants)
+	@Inject
+	@ConfigReportTemplateDir
+	private String reportTemplateDir;
+
+	@Inject
+	@ConfigReportBackgroundPage1
+	private String reportBackgroundPage1;
+
+	@Inject
+	@ConfigReportBackgroundPage2
+	private String reportBackgroundPage2;
+
+	public void generateParticipantReport(Participant participant)
 			throws FileNotFoundException, JRException {
 
-		JasperDesign jasperDesign = null;
+		log.debug("Iniciando a exportação do relatório: "
+				+ this.participantReportTemplate);
+
 		JasperPrint jasperPrint = null;
 		JasperReport jasperReport = null;
-
 		Map<String, Object> parameters = new HashMap<String, Object>();
 
-		InputStream reportTemplateStream = Thread.currentThread()
-				.getContextClassLoader()
-				.getResourceAsStream(this.participantReportTemplate);
-
+		log.debug("Compilando template");
+		String templatePath = this.reportTemplateDir
+				+ this.participantReportTemplate;
+		InputStream reportTemplateStream = this
+				.getResourceInputStream(templatePath);
 		jasperReport = JasperCompileManager.compileReport(reportTemplateStream);
 
-		InputStream page1Stream = Thread.currentThread()
-				.getContextClassLoader().getResourceAsStream("page1.jpg");
-
+		log.debug("Preparando background da página 1");
+		String page1 = this.reportTemplateDir + this.reportBackgroundPage1;
+		InputStream page1Stream = this.getResourceInputStream(page1);
 		parameters.put("BACKGROUND1", page1Stream);
 
-		InputStream page2Stream = Thread.currentThread()
-				.getContextClassLoader().getResourceAsStream("page2.jpg");
-
+		log.debug("Preparando background da página 2");
+		String page2 = this.reportTemplateDir + this.reportBackgroundPage2;
+		InputStream page2Stream = this.getResourceInputStream(page2);
 		parameters.put("BACKGROUND2", page2Stream);
 
-		// jasperDesign = JRXmlLoader.load(reportTemplateStream);
+		log.debug("Exportando");
+		String reportPath = this.getReportPath(participant);
 
 		jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,
-				new JRBeanCollectionDataSource(participants));
+				new JRBeanCollectionDataSource(Arrays.asList(participant)));
 
-		String reportName = null;
-		for (Participant participant : participants) {
-			reportName = Base64.encodeString(participant.getEmail());
-			this.exportToPdf(jasperPrint, reportName);
-		}
+		this.exportToPdf(jasperPrint, reportPath);
+	}
 
-		JasperViewer.viewReport(jasperPrint);
-
+	private InputStream getResourceInputStream(String filePath) {
+		InputStream page2Stream = Thread.currentThread()
+				.getContextClassLoader().getResourceAsStream(filePath);
+		return page2Stream;
 	}
 
 	private void exportToPdf(JasperPrint jasperPrint, String reportName)
@@ -79,8 +97,18 @@ public class ReportGenerator {
 		JRExporter exporter = new JRPdfExporter();
 		exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,
-				new FileOutputStream(reportName + ".pdf"));
+				new FileOutputStream(reportName));
 
 		exporter.exportReport();
+	}
+
+	String getReportPath(Participant participant) {
+
+		String encodedEmail = Base64.encodeBase64URLSafeString(participant
+				.getEmail().getBytes());
+
+		String reportpath = "generated/" + encodedEmail + ".pdf";
+
+		return reportpath;
 	}
 }
