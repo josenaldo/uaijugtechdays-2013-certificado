@@ -22,10 +22,10 @@ import com.uaijug.certificado.test.AbstractIntegrationTest;
 
 @UseModules(value = { BasicConfigurationTestModule.class,
 		RepositoryModule.class })
-public class ReportGeneratorTest extends AbstractIntegrationTest {
+public class ParticipantReportGeneratorTest extends AbstractIntegrationTest {
 
 	@Inject
-	private ReportGenerator reportGenerator;
+	private ParticipantReportGenerator reportGenerator;
 
 	@Inject
 	private ParticipantRepository participantRepository;
@@ -35,7 +35,7 @@ public class ReportGeneratorTest extends AbstractIntegrationTest {
 		List<Participant> participants = this.participantRepository.findAll();
 
 		for (Participant participant : participants) {
-			this.reportGenerator.generateParticipantReport(participant);
+			this.reportGenerator.generate(participant);
 		}
 
 		String reportPath = null;
