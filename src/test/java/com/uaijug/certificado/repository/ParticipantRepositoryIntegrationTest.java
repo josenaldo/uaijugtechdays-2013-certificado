@@ -10,15 +10,19 @@ import javax.inject.Inject;
 
 import org.jukito.UseModules;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import com.uaijug.certificado.model.Participant;
 import com.uaijug.certificado.module.BasicConfigurationTestModule;
 import com.uaijug.certificado.module.RepositoryModule;
 import com.uaijug.certificado.test.AbstractIntegrationTest;
+import com.uaijug.certificado.test.annotation.type.IntegrationTest;
 
+@Category(IntegrationTest.class)
 @UseModules(value = { BasicConfigurationTestModule.class,
 		RepositoryModule.class })
-public class ParticipantRepositoryTest extends AbstractIntegrationTest {
+public class ParticipantRepositoryIntegrationTest extends
+		AbstractIntegrationTest {
 
 	@Inject
 	private ParticipantRepository participantRepository;

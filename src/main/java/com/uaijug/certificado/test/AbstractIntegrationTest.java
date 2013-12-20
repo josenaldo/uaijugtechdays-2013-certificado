@@ -1,6 +1,7 @@
 package com.uaijug.certificado.test;
 
 import javax.inject.Inject;
+import javax.persistence.EntityManagerFactory;
 
 import org.jukito.JukitoRunner;
 import org.junit.After;
@@ -13,14 +14,18 @@ public abstract class AbstractIntegrationTest {
 	@Inject
 	private DatabaseLoader loader;
 
+	@Inject
+	private EntityManagerFactory entityManagerFactory;
+
 	@Before
 	public void configureDatabase() throws Exception {
-		loader.setup();
+		this.entityManagerFactory.createEntityManager();
+		this.loader.setup();
 	}
 
 	@After
 	public void cleanDatabase() throws Exception {
-		loader.tearDown();
+		this.loader.tearDown();
 	}
 
 }

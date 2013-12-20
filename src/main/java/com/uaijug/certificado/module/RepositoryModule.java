@@ -12,12 +12,15 @@ public class RepositoryModule extends AbstractModule {
 
 	@Override
 	protected void configure() {
-		bind(ParticipantRepository.class);
+
+		this.bind(ParticipantRepository.class);
+
 	}
 
 	@Provides
 	public EntityManagerFactory createEntityManagerFactory(
-			@ConfigPersistenceUnit String persistenceUnitName) {
+
+	@ConfigPersistenceUnit String persistenceUnitName) {
 		return Persistence.createEntityManagerFactory(persistenceUnitName);
 	}
 

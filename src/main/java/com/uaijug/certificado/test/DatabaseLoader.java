@@ -4,7 +4,6 @@ import java.io.File;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import javax.persistence.EntityManagerFactory;
 
 import org.dbunit.IDatabaseTester;
 import org.dbunit.JdbcDatabaseTester;
@@ -22,9 +21,6 @@ import com.uaijug.certificado.test.config.ConfigTestDataset;
 public class DatabaseLoader {
 
 	private IDatabaseTester databaseTester;
-
-	@Inject
-	private EntityManagerFactory entityManagerFactory;
 
 	@Inject
 	@ConfigDatabaseDriver
@@ -51,8 +47,6 @@ public class DatabaseLoader {
 	}
 
 	public void setup(String dataset) throws Exception {
-
-		this.entityManagerFactory.createEntityManager();
 
 		System.setProperty(
 				PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS,

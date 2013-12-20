@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 public class Participant {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

@@ -31,6 +31,7 @@ public class Generator {
 
 	private void init(AbstractModule... abstractModules) throws Exception {
 		Injector injector = Guice.createInjector(abstractModules);
+
 	}
 
 }

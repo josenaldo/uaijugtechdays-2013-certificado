@@ -13,16 +13,20 @@ import net.sf.jasperreports.engine.JRException;
 
 import org.jukito.UseModules;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import com.uaijug.certificado.model.Participant;
 import com.uaijug.certificado.module.BasicConfigurationTestModule;
 import com.uaijug.certificado.module.RepositoryModule;
 import com.uaijug.certificado.repository.ParticipantRepository;
 import com.uaijug.certificado.test.AbstractIntegrationTest;
+import com.uaijug.certificado.test.annotation.type.IntegrationTest;
 
+@Category(IntegrationTest.class)
 @UseModules(value = { BasicConfigurationTestModule.class,
 		RepositoryModule.class })
-public class ParticipantReportGeneratorTest extends AbstractIntegrationTest {
+public class ParticipantReportGeneratorIntegrationTest extends
+		AbstractIntegrationTest {
 
 	@Inject
 	private ParticipantReportGenerator reportGenerator;

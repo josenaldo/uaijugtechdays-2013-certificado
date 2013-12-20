@@ -5,14 +5,6 @@ import com.uaijug.certificado.config.ConfigDatabaseDriver;
 import com.uaijug.certificado.config.ConfigDatabasePassword;
 import com.uaijug.certificado.config.ConfigDatabaseUrl;
 import com.uaijug.certificado.config.ConfigDatabaseUser;
-import com.uaijug.certificado.config.ConfigEmailCharset;
-import com.uaijug.certificado.config.ConfigEmailFrom;
-import com.uaijug.certificado.config.ConfigEmailPassword;
-import com.uaijug.certificado.config.ConfigEmailSmtpAuth;
-import com.uaijug.certificado.config.ConfigEmailSmtpHost;
-import com.uaijug.certificado.config.ConfigEmailSmtpPort;
-import com.uaijug.certificado.config.ConfigEmailStartTlsEnabled;
-import com.uaijug.certificado.config.ConfigEmailTextType;
 import com.uaijug.certificado.config.ConfigPersistenceUnit;
 import com.uaijug.certificado.config.ConfigReportBackgroundPage1;
 import com.uaijug.certificado.config.ConfigReportBackgroundPage2;
@@ -23,33 +15,10 @@ public class BasicConfigurationModule extends AbstractModule {
 
 	@Override
 	protected void configure() {
+
 		this.configureDatabase();
 
 		this.configureReport();
-
-		this.bind(String.class).annotatedWith(ConfigEmailFrom.class)
-				.toInstance("");
-
-		this.bind(String.class).annotatedWith(ConfigEmailPassword.class)
-				.toInstance("");
-
-		this.bind(String.class).annotatedWith(ConfigEmailSmtpAuth.class)
-				.toInstance("");
-
-		this.bind(String.class).annotatedWith(ConfigEmailStartTlsEnabled.class)
-				.toInstance("");
-
-		this.bind(String.class).annotatedWith(ConfigEmailSmtpHost.class)
-				.toInstance("");
-
-		this.bind(String.class).annotatedWith(ConfigEmailSmtpPort.class)
-				.toInstance("");
-
-		this.bind(String.class).annotatedWith(ConfigEmailCharset.class)
-				.toInstance("");
-
-		this.bind(String.class).annotatedWith(ConfigEmailTextType.class)
-				.toInstance("");
 
 	}
 
