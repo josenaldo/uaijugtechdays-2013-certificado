@@ -27,6 +27,7 @@
 			<artifactId>jcommon</artifactId>
 			<version>1.0.17</version>
 		</dependency>
+
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
@@ -115,11 +116,11 @@
 			<version>1.7.5</version>
 		</dependency>
 
-
-
-
-
-
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mailapi</artifactId>
+			<version>1.4.3</version>
+		</dependency>
 
 
 
