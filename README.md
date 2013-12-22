@@ -8,3 +8,5 @@ para entrar no futuro sistema de gestão de eventos do UAIJUG, que será usado p
 o TechDays 2014, mas também o lançamento da missão chinesa a marte no ano que vem. 
 
 Se você ainda não sabe disso e se acreditou na estória que contaram, é porque ainda não faz parte do UAIJUG.
+
+Obs: De todos os problemas de conflito que o git poderia acusar, porque, em nome de Deus, tinha que ser justamente com esse arquivo?
