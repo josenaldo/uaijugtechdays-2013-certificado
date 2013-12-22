@@ -14,12 +14,13 @@ public class ParticipantService {
 	@Inject
 	private ParticipantRepository participantRepository;
 
-	public List<Participant> findAll() {
-		return this.participantRepository.findAll();
-	}
-
 	public void setParticipantRepository(
 			ParticipantRepository participantRepository) {
 		this.participantRepository = participantRepository;
 	}
+
+	public List<Participant> findAll() {
+		return this.participantRepository.findAll();
+	}
+
 }
