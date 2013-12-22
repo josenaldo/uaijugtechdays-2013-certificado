@@ -3,12 +3,15 @@ package com.uaijug.certificado.module;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.uaijug.certificado.config.ConfigEmailCharset;
-import com.uaijug.certificado.config.ConfigEmailFrom;
 import com.uaijug.certificado.config.ConfigEmailPassword;
 import com.uaijug.certificado.config.ConfigEmailSmtpAuth;
 import com.uaijug.certificado.config.ConfigEmailSmtpHost;
+import com.uaijug.certificado.config.ConfigEmailSmtpPort;
 import com.uaijug.certificado.config.ConfigEmailStartTlsEnabled;
 import com.uaijug.certificado.config.ConfigEmailTextType;
+import com.uaijug.certificado.config.ConfigEmailUsername;
+import com.uaijug.certificado.model.Configuration;
+import com.uaijug.certificado.service.ConfigurationService;
 
 /**
  * Esse módulo é responsável por carregar as configurações do email.
@@ -25,29 +28,70 @@ public class EmailConfigurationModule extends AbstractModule {
 
 	@Override
 	protected void configure() {
-		this.bind(String.class).annotatedWith(ConfigEmailFrom.class)
-				.toInstance("");
 
-		this.bind(String.class).annotatedWith(ConfigEmailPassword.class)
-				.toInstance("");
+	}
 
-		this.bind(String.class).annotatedWith(ConfigEmailSmtpAuth.class)
-				.toInstance("true");
+	private String getConfig(String key,
+			ConfigurationService configurationService) {
+		Configuration configuration = configurationService.findByKey(key);
 
-		this.bind(String.class).annotatedWith(ConfigEmailStartTlsEnabled.class)
-				.toInstance("true");
+		if (configuration != null) {
+			return configuration.getValue();
+		} else {
+			return "";
+		}
 
-		this.bind(String.class).annotatedWith(ConfigEmailCharset.class)
-				.toInstance("UTF-8");
+	}
 
-		this.bind(String.class).annotatedWith(ConfigEmailTextType.class)
-				.toInstance("text/html");
+	@Provides
+	@ConfigEmailUsername
+	public String getEmailFrom(ConfigurationService configurationService) {
+		return this.getConfig("email.username", configurationService);
+	}
+
+	@Provides
+	@ConfigEmailPassword
+	public String getEmailPassword(ConfigurationService configurationService) {
+		return this.getConfig("email.password", configurationService);
 	}
 
 	@Provides
 	@ConfigEmailSmtpHost
-	public String getEmailFrom() {
-		return null;
+	public String getEmailEmailSmtpHost(
+			ConfigurationService configurationService) {
+		return this.getConfig("email.smtp.host", configurationService);
+	}
+
+	@Provides
+	@ConfigEmailSmtpPort
+	public String getEmailSmtpPort(ConfigurationService configurationService) {
+		return this.getConfig("email.smtp.port", configurationService);
+	}
+
+	@Provides
+	@ConfigEmailSmtpAuth
+	public String getEmailSmtpAuth(ConfigurationService configurationService) {
+		return this.getConfig("email.smtp.auth", configurationService);
+	}
+
+	@Provides
+	@ConfigEmailStartTlsEnabled
+	public String getEmailStartTlsEnabled(
+			ConfigurationService configurationService) {
+		return this.getConfig("email.smtp.starttls.enable",
+				configurationService);
+	}
+
+	@Provides
+	@ConfigEmailCharset
+	public String EmailCharset(ConfigurationService configurationService) {
+		return this.getConfig("email.charset", configurationService);
+	}
+
+	@Provides
+	@ConfigEmailTextType
+	public String getEmailTextType(ConfigurationService configurationService) {
+		return this.getConfig("email.text.type", configurationService);
 	}
 
 }

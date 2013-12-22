@@ -1,4 +1,4 @@
-package com.uaijug.certificado.test.config;
+package com.uaijug.certificado.test.annotation.config;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;

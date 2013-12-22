@@ -1,4 +1,4 @@
-package com.uaijug.certificado.module;
+package com.uaijug.certificado.test.annotation.config;
 
 import com.google.inject.AbstractModule;
 import com.uaijug.certificado.config.ConfigDatabaseDriver;
@@ -10,9 +10,8 @@ import com.uaijug.certificado.config.ConfigReportBackgroundPage1;
 import com.uaijug.certificado.config.ConfigReportBackgroundPage2;
 import com.uaijug.certificado.config.ConfigReportParticipantTemplate;
 import com.uaijug.certificado.config.ConfigReportTemplateDir;
-import com.uaijug.certificado.test.config.ConfigTestDataset;
 
-public class BasicConfigurationTestModule extends AbstractModule {
+public class TestBasicConfigurationModule extends AbstractModule {
 
 	@Override
 	protected void configure() {

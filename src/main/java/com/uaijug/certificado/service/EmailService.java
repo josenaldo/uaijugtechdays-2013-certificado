@@ -22,7 +22,7 @@ import com.uaijug.certificado.config.ConfigEmailSmtpHost;
 import com.uaijug.certificado.config.ConfigEmailSmtpPort;
 import com.uaijug.certificado.config.ConfigEmailStartTlsEnabled;
 import com.uaijug.certificado.config.ConfigEmailTextType;
-import com.uaijug.certificado.config.ConfigEmailFrom;
+import com.uaijug.certificado.config.ConfigEmailUsername;
 import com.uaijug.certificado.exception.CannotSendEmailException;
 
 /**
@@ -35,7 +35,7 @@ public class EmailService {
 
 	/** O campo from do email. */
 	@Inject
-	@ConfigEmailFrom
+	@ConfigEmailUsername
 	private String from;
 
 	/** A senha da conta de email usada para enviar. */
