@@ -7,6 +7,7 @@ import com.uaijug.certificado.config.ConfigEmailPassword;
 import com.uaijug.certificado.config.ConfigEmailSmtpAuth;
 import com.uaijug.certificado.config.ConfigEmailSmtpHost;
 import com.uaijug.certificado.config.ConfigEmailSmtpPort;
+import com.uaijug.certificado.config.ConfigEmailSmtpTransportType;
 import com.uaijug.certificado.config.ConfigEmailStartTlsEnabled;
 import com.uaijug.certificado.config.ConfigEmailTextType;
 import com.uaijug.certificado.config.ConfigEmailUsername;
@@ -72,6 +73,14 @@ public class EmailConfigurationModule extends AbstractModule {
 	@ConfigEmailSmtpAuth
 	public String getEmailSmtpAuth(ConfigurationService configurationService) {
 		return this.getConfig("email.smtp.auth", configurationService);
+	}
+
+	@Provides
+	@ConfigEmailSmtpTransportType
+	public String getEmailSmtpTransportType(
+			ConfigurationService configurationService) {
+		return this
+				.getConfig("email.smtp.transport.type", configurationService);
 	}
 
 	@Provides

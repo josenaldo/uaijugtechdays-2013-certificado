@@ -39,10 +39,11 @@ public class ConfigurationRepositoryIntegrationTest extends
 		List<Configuration> configurations = this.configurationRepository
 				.findAll();
 
-		assertThat("Deveria haver 9 configurações", configurations, hasSize(9));
+		assertThat("Deveria haver 10 configurações", configurations,
+				hasSize(10));
 
 		Configuration savedConfiguration = this.configurationRepository
-				.find(9L);
+				.find(10L);
 		assertThat("A chave deveria ser igual a " + this.key,
 				savedConfiguration.getKey(), is(equalTo(this.key)));
 
@@ -55,7 +56,7 @@ public class ConfigurationRepositoryIntegrationTest extends
 	public void testFindAll() {
 		List<Configuration> configurations = this.configurationRepository
 				.findAll();
-		assertThat("Deveria haver 2 configurações", configurations, hasSize(8));
+		assertThat("Deveria haver 9 configurações", configurations, hasSize(9));
 	}
 
 	@Test
@@ -66,7 +67,7 @@ public class ConfigurationRepositoryIntegrationTest extends
 		List<Configuration> configurations = this.configurationRepository
 				.findAll();
 
-		assertThat("Deve haver 1 configuratione", configurations, hasSize(7));
+		assertThat("Deve haver 8 configuratione", configurations, hasSize(8));
 
 		Configuration configuration = this.configurationRepository.find(1L);
 		assertThat("O configuratione 1 não deveria mais existir",
@@ -83,8 +84,8 @@ public class ConfigurationRepositoryIntegrationTest extends
 		assertThat("A chave deveria ser email.username",
 				configuration.getKey(), is(equalTo("email.username")));
 
-		assertThat("O valor deveria ser test@localhost.com",
-				configuration.getValue(), is(equalTo("test@localhost.com")));
+		assertThat("O valor deveria ser sender@here.com",
+				configuration.getValue(), is(equalTo("sender@here.com")));
 	}
 
 }

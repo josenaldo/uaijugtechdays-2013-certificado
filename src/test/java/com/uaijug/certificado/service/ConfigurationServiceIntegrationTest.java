@@ -30,7 +30,7 @@ public class ConfigurationServiceIntegrationTest extends
 	@Test
 	public void testFindAll() {
 		List<Configuration> list = this.configurationService.findAll();
-		assertThat("Lista deveria ter 8 elementos", list, hasSize(8));
+		assertThat("Lista deveria ter 9 elementos", list, hasSize(9));
 	}
 
 	@Test
@@ -40,8 +40,8 @@ public class ConfigurationServiceIntegrationTest extends
 
 		assertThat("A configuração deveria ter sido encontrada", config,
 				is(notNullValue()));
-		assertThat("A configuração deveria ser igual a test@localhost.com",
-				config.getValue(), is(equalTo("test@localhost.com")));
+		assertThat("A configuração deveria ser igual a sender@here.com",
+				config.getValue(), is(equalTo("sender@here.com")));
 	}
 
 	@Test
