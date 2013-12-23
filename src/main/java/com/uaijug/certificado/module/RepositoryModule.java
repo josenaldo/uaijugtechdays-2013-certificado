@@ -16,8 +16,7 @@ public class RepositoryModule extends AbstractModule {
 
 	@Provides
 	public EntityManagerFactory createEntityManagerFactory(
-
-	@ConfigPersistenceUnit String persistenceUnitName) {
+			@ConfigPersistenceUnit String persistenceUnitName) {
 		return Persistence.createEntityManagerFactory(persistenceUnitName);
 	}
 
