@@ -11,7 +11,7 @@ import com.uaijug.certificado.config.ConfigReportBackgroundPage2;
 import com.uaijug.certificado.config.ConfigReportParticipantTemplate;
 import com.uaijug.certificado.config.ConfigReportTemplateDir;
 
-public class TestBasicConfigurationModule extends AbstractModule {
+public class RealTestBasicConfigurationModule extends AbstractModule {
 
 	@Override
 	protected void configure() {
@@ -24,7 +24,7 @@ public class TestBasicConfigurationModule extends AbstractModule {
 
 	private void configureFixtures() {
 		this.bind(String.class).annotatedWith(ConfigTestDataset.class)
-				.toInstance("src/test/resources/database/database-default.xml");
+				.toInstance("d:\\database-real-email.xml");
 	}
 
 	private void configureDatabase() {

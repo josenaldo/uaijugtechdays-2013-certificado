@@ -6,6 +6,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.uaijug.certificado.module.BasicConfigurationModule;
+import com.uaijug.certificado.module.EmailConfigurationModule;
 import com.uaijug.certificado.module.RepositoryModule;
 
 public class Generator {
@@ -26,7 +27,8 @@ public class Generator {
 	}
 
 	private void init() throws Exception {
-		this.init(new BasicConfigurationModule(), new RepositoryModule());
+		this.init(new BasicConfigurationModule(), new RepositoryModule(),
+				new EmailConfigurationModule());
 	}
 
 	private void init(AbstractModule... abstractModules) throws Exception {
