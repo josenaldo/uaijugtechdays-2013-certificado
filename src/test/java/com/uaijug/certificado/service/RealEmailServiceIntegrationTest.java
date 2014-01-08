@@ -34,14 +34,6 @@ public class RealEmailServiceIntegrationTest extends AbstractIntegrationTest {
 	}
 
 	@Test
-	public void testConfigurationEmailPassword() {
-		assertThat("A configuração @ConfigEmailPassword não deveria ser nula",
-				this.emailService.getPassword(), is(notNullValue()));
-		assertThat("A configuração @ConfigEmailPassword não deveria ser vazia",
-				this.emailService.getPassword().isEmpty(), is(false));
-	}
-
-	@Test
 	public void testConfigurationEmailSmtpHost() {
 		assertThat("A configuração @ConfigEmailSmtpHost não deveria ser nula",
 				this.emailService.getSmtpHost(), is(notNullValue()));
@@ -99,6 +91,14 @@ public class RealEmailServiceIntegrationTest extends AbstractIntegrationTest {
 				this.emailService.getTextType(), is(notNullValue()));
 		assertThat("A configuração @ConfigEmailTextType não deveria ser vazia",
 				this.emailService.getTextType().isEmpty(), is(false));
+	}
+
+	@Test
+	public void testConfigurationEmailPassword() {
+		assertThat("A configuração @ConfigEmailPassword não deveria ser nula",
+				this.emailService.getPassword(), is(notNullValue()));
+		assertThat("A configuração @ConfigEmailPassword não deveria ser vazia",
+				this.emailService.getPassword().isEmpty(), is(false));
 	}
 
 	@Test

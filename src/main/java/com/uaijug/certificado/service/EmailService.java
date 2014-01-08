@@ -80,6 +80,11 @@ public class EmailService {
 
 	public void sendMail(String to, String subject, String messageText)
 			throws CannotSendEmailException {
+		this.sendMail(to, subject, messageText, null);
+	}
+
+	public void sendMail(String to, String subject, String messageText,
+			String attachement) throws CannotSendEmailException {
 
 		Properties props = this.configureEmailProperties();
 

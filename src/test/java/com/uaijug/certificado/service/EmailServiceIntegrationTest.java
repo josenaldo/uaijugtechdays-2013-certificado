@@ -8,6 +8,7 @@ import java.util.Iterator;
 import javax.inject.Inject;
 
 import org.jukito.UseModules;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -24,8 +25,14 @@ import com.uaijug.certificado.test.annotation.type.IntegrationTest;
 @UseModules(value = { TestBasicConfigurationModule.class,
 		RepositoryModule.class, EmailConfigurationModule.class })
 public class EmailServiceIntegrationTest extends AbstractIntegrationTest {
+
 	@Inject
 	private EmailService emailService;
+
+	@Before
+	public void init() {
+		this.emailService.getPassword().isEmpty();
+	}
 
 	@Test
 	public void testConfigurationEmailUsername() {
@@ -38,10 +45,11 @@ public class EmailServiceIntegrationTest extends AbstractIntegrationTest {
 
 	@Test
 	public void testConfigurationEmailPassword() {
+		String password = this.emailService.getPassword();
 		assertThat("A configuração @ConfigEmailPassword não deveria ser nula",
-				this.emailService.getPassword(), is(notNullValue()));
+				password, is(notNullValue()));
 		assertThat("A configuração @ConfigEmailPassword não deveria ser vazia",
-				this.emailService.getPassword().isEmpty(), is(false));
+				password.isEmpty(), is(false));
 	}
 
 	@Test

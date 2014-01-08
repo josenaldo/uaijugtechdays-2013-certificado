@@ -31,8 +31,9 @@ public class ParticipantServiceTest {
 	@Test
 	public void testFindAll() {
 
-		List<Participant> participants = Arrays.asList(new Participant("Joao",
-				"joao@bol.com.br"), new Participant("Joao", "joao@bol.com.br"),
+		List<Participant> participants = Arrays.asList(new Participant("Pedro",
+				"pedro@bol.com.br"), new Participant("Mateus",
+				"mateus@bol.com.br"),
 				new Participant("Joao", "joao@bol.com.br"));
 		when(this.participantRepository.findAll()).thenReturn(participants);
 

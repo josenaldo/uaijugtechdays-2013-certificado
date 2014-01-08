@@ -86,6 +86,12 @@ public class ConfigurationRepositoryIntegrationTest extends
 
 		assertThat("O valor deveria ser sender@here.com",
 				configuration.getValue(), is(equalTo("sender@here.com")));
+
+		configuration = this.configurationRepository
+				.findByKey("email.password");
+
+		assertThat("Uma configuração deveria ter sido encontrada",
+				configuration, is(notNullValue()));
 	}
 
 }

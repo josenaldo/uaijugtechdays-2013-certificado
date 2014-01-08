@@ -20,6 +20,7 @@ public abstract class AbstractIntegrationTest {
 	@Before
 	public void configureDatabase() throws Exception {
 		this.entityManagerFactory.createEntityManager();
+
 		this.loader.setup();
 	}
 
