@@ -18,8 +18,8 @@ import com.uaijug.certificado.exception.CannotSendEmailException;
 import com.uaijug.certificado.module.EmailConfigurationModule;
 import com.uaijug.certificado.module.RepositoryModule;
 import com.uaijug.certificado.test.AbstractIntegrationTest;
-import com.uaijug.certificado.test.annotation.config.TestBasicConfigurationModule;
 import com.uaijug.certificado.test.annotation.type.IntegrationTest;
+import com.uaijug.certificado.test.module.TestBasicConfigurationModule;
 
 @Category(IntegrationTest.class)
 @UseModules(value = { TestBasicConfigurationModule.class,

@@ -63,10 +63,6 @@ public class ParticipantReportCommandTest {
 		verify(this.emailService, times(this.participants.size())).sendMail(
 				anyString(), anyString(), anyString(), anyString());
 
-		// recuperar lista de participantes
-		// criar um certificado para cada um
-		// enviar o certificado por email
-
 	}
 
 }

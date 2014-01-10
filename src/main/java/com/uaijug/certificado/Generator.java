@@ -5,7 +5,10 @@ import org.apache.log4j.Logger;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.uaijug.certificado.controller.Controller;
+import com.uaijug.certificado.controller.command.ParticipantReportCommand;
 import com.uaijug.certificado.module.BasicConfigurationModule;
+import com.uaijug.certificado.module.ControllerModule;
 import com.uaijug.certificado.module.EmailConfigurationModule;
 import com.uaijug.certificado.module.RepositoryModule;
 
@@ -28,12 +31,14 @@ public class Generator {
 
 	private void init() throws Exception {
 		this.init(new BasicConfigurationModule(), new RepositoryModule(),
-				new EmailConfigurationModule());
+				new ControllerModule(), new EmailConfigurationModule());
 	}
 
 	private void init(AbstractModule... abstractModules) throws Exception {
 		Injector injector = Guice.createInjector(abstractModules);
 
+		Controller controller = injector.getInstance(Controller.class);
+		controller.execute(ParticipantReportCommand.COMMAND_NAME, null);
 	}
 
 }

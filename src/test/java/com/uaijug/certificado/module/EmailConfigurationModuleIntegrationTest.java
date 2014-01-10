@@ -19,8 +19,8 @@ import com.uaijug.certificado.config.ConfigEmailStartTlsEnabled;
 import com.uaijug.certificado.config.ConfigEmailTextType;
 import com.uaijug.certificado.config.ConfigEmailUsername;
 import com.uaijug.certificado.test.AbstractIntegrationTest;
-import com.uaijug.certificado.test.annotation.config.TestBasicConfigurationModule;
 import com.uaijug.certificado.test.annotation.type.IntegrationTest;
+import com.uaijug.certificado.test.module.TestBasicConfigurationModule;
 
 @Category(IntegrationTest.class)
 @UseModules(value = { TestBasicConfigurationModule.class,
