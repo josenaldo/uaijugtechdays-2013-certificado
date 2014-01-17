@@ -14,6 +14,7 @@ import com.uaijug.certificado.module.RepositoryModule;
 public class Generator {
 
 	private static final Logger log = Logger.getLogger(Generator.class);
+	private Controller controller;
 
 	public static void main(String[] args) {
 
@@ -21,6 +22,7 @@ public class Generator {
 			Generator generator = new Generator();
 
 			generator.init();
+			generator.execute();
 
 		} catch (Exception e) {
 			log.error("Um erro derrubou o servidor de impress�o: ", e);
@@ -28,16 +30,18 @@ public class Generator {
 		}
 	}
 
-	private void init() throws Exception {
+	void init() throws Exception {
 		this.init(new PropertiesConfigModule(), new RepositoryModule(),
 				new ControllerModule());
 	}
 
-	private void init(AbstractModule... abstractModules) throws Exception {
+	void init(AbstractModule... abstractModules) throws Exception {
 		Injector injector = Guice.createInjector(abstractModules);
 
-		Controller controller = injector.getInstance(Controller.class);
-		controller.execute(ParticipantReportCommand.COMMAND_NAME, null);
+		controller = injector.getInstance(Controller.class);
 	}
 
+	void execute() throws Exception {
+		controller.execute(ParticipantReportCommand.COMMAND_NAME, null);
+	}
 }
