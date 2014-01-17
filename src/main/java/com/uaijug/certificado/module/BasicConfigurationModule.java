@@ -1,6 +1,7 @@
 package com.uaijug.certificado.module;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.name.Names;
 import com.uaijug.certificado.config.ConfigDatabaseDriver;
 import com.uaijug.certificado.config.ConfigDatabasePassword;
 import com.uaijug.certificado.config.ConfigDatabaseUrl;
@@ -15,6 +16,9 @@ public class BasicConfigurationModule extends AbstractModule {
 
 	@Override
 	protected void configure() {
+
+		this.bind(String.class).annotatedWith(Names.named("configFile"))
+				.toInstance("config.properties");
 
 		this.configureDatabase();
 
