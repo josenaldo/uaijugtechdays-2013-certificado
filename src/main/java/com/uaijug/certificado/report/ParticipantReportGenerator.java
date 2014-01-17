@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 
 import com.uaijug.certificado.config.ConfigReportBackgroundPage1;
 import com.uaijug.certificado.config.ConfigReportBackgroundPage2;
+import com.uaijug.certificado.config.ConfigReportGeneratedDir;
 import com.uaijug.certificado.config.ConfigReportParticipantTemplate;
 import com.uaijug.certificado.config.ConfigReportTemplateDir;
 import com.uaijug.certificado.model.Participant;
@@ -41,6 +42,10 @@ public class ParticipantReportGenerator extends
 	@ConfigReportBackgroundPage2
 	private String reportBackgroundPage2;
 
+	@Inject
+	@ConfigReportGeneratedDir
+	private String generatedDir;
+
 	@Override
 	protected List<Participant> getCollection(Participant participant) {
 		return Arrays.asList(participant);
@@ -50,20 +55,20 @@ public class ParticipantReportGenerator extends
 	protected Map<String, Object> getParameters() {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		log.debug("Preparando background da página 1");
-		String page1 = this.reportTemplateDir + this.reportBackgroundPage1;
-		InputStream page1Stream = this.getResourceInputStream(page1);
+		String page1 = reportTemplateDir + reportBackgroundPage1;
+		InputStream page1Stream = getResourceInputStream(page1);
 		parameters.put("BACKGROUND1", page1Stream);
 
 		log.debug("Preparando background da página 2");
-		String page2 = this.reportTemplateDir + this.reportBackgroundPage2;
-		InputStream page2Stream = this.getResourceInputStream(page2);
+		String page2 = reportTemplateDir + reportBackgroundPage2;
+		InputStream page2Stream = getResourceInputStream(page2);
 		parameters.put("BACKGROUND2", page2Stream);
 		return parameters;
 	}
 
 	@Override
-	protected String getTempplatePath() {
-		return this.reportTemplateDir + this.participantReportTemplate;
+	protected String getTemplatePath() {
+		return reportTemplateDir + participantReportTemplate;
 	}
 
 	@Override
@@ -72,7 +77,7 @@ public class ParticipantReportGenerator extends
 		String encodedEmail = Base64.encodeBase64URLSafeString(participant
 				.getEmail().getBytes());
 
-		String reportpath = "generated/" + encodedEmail + ".pdf";
+		String reportpath = generatedDir + encodedEmail + ".pdf";
 
 		return reportpath;
 	}

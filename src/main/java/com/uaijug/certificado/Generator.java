@@ -7,9 +7,8 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.uaijug.certificado.controller.Controller;
 import com.uaijug.certificado.controller.command.ParticipantReportCommand;
-import com.uaijug.certificado.module.BasicConfigurationModule;
 import com.uaijug.certificado.module.ControllerModule;
-import com.uaijug.certificado.module.EmailConfigurationModule;
+import com.uaijug.certificado.module.PropertiesConfigModule;
 import com.uaijug.certificado.module.RepositoryModule;
 
 public class Generator {
@@ -30,8 +29,8 @@ public class Generator {
 	}
 
 	private void init() throws Exception {
-		this.init(new BasicConfigurationModule(), new RepositoryModule(),
-				new ControllerModule(), new EmailConfigurationModule());
+		this.init(new PropertiesConfigModule(), new RepositoryModule(),
+				new ControllerModule());
 	}
 
 	private void init(AbstractModule... abstractModules) throws Exception {

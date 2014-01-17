@@ -1,5 +1,8 @@
 package com.uaijug.certificado.test;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import java.io.File;
 
 import javax.inject.Inject;
@@ -43,40 +46,42 @@ public class DatabaseLoader {
 	private String dataset;
 
 	public void setup() throws Exception {
-		this.setup(this.dataset);
+		this.setup(dataset);
 	}
 
 	public void setup(String dataset) throws Exception {
 
 		System.setProperty(
-				PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS,
-				this.driver);
+				PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, driver);
 
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME,
-				this.user);
+				user);
 
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD,
-				this.password);
+				password);
 
 		System.setProperty(
-				PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL,
-				this.url);
+				PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, url);
 
-		this.databaseTester = new JdbcDatabaseTester(this.driver, this.url,
-				this.user, this.password);
+		databaseTester = new JdbcDatabaseTester(driver, url, user, password);
 
 		// initialize your dataset here
-		IDataSet dataSet = new FlatXmlDataSet(new File(dataset));
+		File file = new File(dataset);
+		assertThat(
+				"Arquivo do banco não foi encontrado: "
+						+ file.getAbsolutePath(), file.exists(), is(true));
 
-		this.databaseTester.setDataSet(dataSet);
+		IDataSet dataSet = new FlatXmlDataSet(file);
+
+		databaseTester.setDataSet(dataSet);
 
 		// will call default setUpOperation
-		this.databaseTester.onSetup();
+		databaseTester.onSetup();
 
 	}
 
 	public void tearDown() throws Exception {
 		// will call default tearDownOperation
-		this.databaseTester.onTearDown();
+		databaseTester.onTearDown();
 	}
 }

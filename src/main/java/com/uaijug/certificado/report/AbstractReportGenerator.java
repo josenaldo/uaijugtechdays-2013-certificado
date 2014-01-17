@@ -25,7 +25,7 @@ public abstract class AbstractReportGenerator<T> {
 		JasperPrint jasperPrint = null;
 		JasperReport jasperReport = null;
 
-		String templatePath = this.getTempplatePath();
+		String templatePath = this.getTemplatePath();
 
 		InputStream reportTemplateStream = this
 				.getResourceInputStream(templatePath);
@@ -52,7 +52,7 @@ public abstract class AbstractReportGenerator<T> {
 
 	protected abstract Map<String, Object> getParameters();
 
-	protected abstract String getTempplatePath();
+	protected abstract String getTemplatePath();
 
 	protected InputStream getResourceInputStream(String filePath) {
 		InputStream inputStream = Thread.currentThread()

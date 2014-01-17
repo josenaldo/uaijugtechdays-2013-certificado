@@ -23,6 +23,10 @@ import com.uaijug.certificado.config.ConfigEmailTextType;
 import com.uaijug.certificado.config.ConfigEmailUsername;
 import com.uaijug.certificado.config.ConfigPersistenceUnit;
 import com.uaijug.certificado.config.ConfigReportBackgroundPage1;
+import com.uaijug.certificado.config.ConfigReportBackgroundPage2;
+import com.uaijug.certificado.config.ConfigReportGeneratedDir;
+import com.uaijug.certificado.config.ConfigReportParticipantTemplate;
+import com.uaijug.certificado.config.ConfigReportTemplateDir;
 
 public class PropertiesConfigModule extends AbstractModule {
 
@@ -31,23 +35,27 @@ public class PropertiesConfigModule extends AbstractModule {
 	@Override
 	protected void configure() {
 		try {
-			Properties properties = this.getProperties("config.properties");
-			Names.bindProperties(this.binder(), properties);
+			Properties properties = getProperties(getConfigFile());
+			Names.bindProperties(binder(), properties);
 		} catch (IOException e) {
 			throw new IllegalArgumentException(
 					"Problema ao carregar o arquivo de configuração", e);
 		}
 	}
 
-	private Properties getProperties(String configFile) throws IOException {
-		if (this.properties == null) {
-			this.properties = new Properties();
+	public String getConfigFile() {
+		return "config.properties";
+	}
 
-			this.properties.load(PropertiesConfigModuleTest.class
-					.getClassLoader().getResourceAsStream(configFile));
+	private Properties getProperties(String configFile) throws IOException {
+		if (properties == null) {
+			properties = new Properties();
+
+			properties.load(PropertiesConfigModuleTest.class.getClassLoader()
+					.getResourceAsStream(configFile));
 		}
 
-		return this.properties;
+		return properties;
 	}
 
 	@Provides
@@ -148,7 +156,35 @@ public class PropertiesConfigModule extends AbstractModule {
 	@Provides
 	@ConfigReportBackgroundPage1
 	public String getConfigReportBackgroundPage1(
-			@Named("database.persistence.unit") String property) {
+			@Named("report.template.participant.page1") String property) {
+		return property;
+	}
+
+	@Provides
+	@ConfigReportBackgroundPage2
+	public String getConfigReportBackgroundPage2(
+			@Named("report.template.participant.page2") String property) {
+		return property;
+	}
+
+	@Provides
+	@ConfigReportGeneratedDir
+	public String getConfigReportGeneratedDir(
+			@Named("report.generated.dir") String property) {
+		return property;
+	}
+
+	@Provides
+	@ConfigReportParticipantTemplate
+	public String getConfigReportParticipantTemplate(
+			@Named("report.template.participant.file") String property) {
+		return property;
+	}
+
+	@Provides
+	@ConfigReportTemplateDir
+	public String getConfigReportTemplateDir(
+			@Named("report.template.dir") String property) {
 		return property;
 	}
 }

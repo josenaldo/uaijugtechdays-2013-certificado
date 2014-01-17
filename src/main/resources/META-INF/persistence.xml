@@ -4,8 +4,7 @@
 	<persistence-unit name="CertificadosPU" transaction-type="RESOURCE_LOCAL">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		
-		<class>com.uaijug.certificado.model.Participant</class>	
-		<class>com.uaijug.certificado.model.Configuration</class>
+		<class>com.uaijug.certificado.model.Participant</class>
 		
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver" />			

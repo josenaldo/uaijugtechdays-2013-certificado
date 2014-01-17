@@ -20,11 +20,10 @@ import com.uaijug.certificado.module.RepositoryModule;
 import com.uaijug.certificado.repository.ParticipantRepository;
 import com.uaijug.certificado.test.AbstractIntegrationTest;
 import com.uaijug.certificado.test.annotation.type.IntegrationTest;
-import com.uaijug.certificado.test.module.TestBasicConfigurationModule;
+import com.uaijug.certificado.test.module.TestPropertiesConfigModule;
 
 @Category(IntegrationTest.class)
-@UseModules(value = { TestBasicConfigurationModule.class,
-		RepositoryModule.class })
+@UseModules(value = { TestPropertiesConfigModule.class, RepositoryModule.class })
 public class ParticipantReportGeneratorIntegrationTest extends
 		AbstractIntegrationTest {
 
@@ -36,17 +35,17 @@ public class ParticipantReportGeneratorIntegrationTest extends
 
 	@Test
 	public void test() throws FileNotFoundException, JRException {
-		List<Participant> participants = this.participantRepository.findAll();
+		List<Participant> participants = participantRepository.findAll();
 
 		for (Participant participant : participants) {
-			this.reportGenerator.generate(participant);
+			reportGenerator.generate(participant);
 		}
 
 		String reportPath = null;
 		File reportFile = null;
 
 		for (Participant participant : participants) {
-			reportPath = this.reportGenerator.getReportPath(participant);
+			reportPath = reportGenerator.getReportPath(participant);
 
 			reportFile = new File(reportPath);
 

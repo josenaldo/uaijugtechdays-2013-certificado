@@ -15,11 +15,10 @@ import com.uaijug.certificado.model.Participant;
 import com.uaijug.certificado.module.RepositoryModule;
 import com.uaijug.certificado.test.AbstractIntegrationTest;
 import com.uaijug.certificado.test.annotation.type.IntegrationTest;
-import com.uaijug.certificado.test.module.TestBasicConfigurationModule;
+import com.uaijug.certificado.test.module.TestPropertiesConfigModule;
 
 @Category(IntegrationTest.class)
-@UseModules(value = { TestBasicConfigurationModule.class,
-		RepositoryModule.class })
+@UseModules(value = { TestPropertiesConfigModule.class, RepositoryModule.class })
 public class ParticipantServiceIntegrationTest extends AbstractIntegrationTest {
 
 	@Inject
@@ -28,7 +27,7 @@ public class ParticipantServiceIntegrationTest extends AbstractIntegrationTest {
 	@Test
 	public void testFindAll() {
 
-		List<Participant> list = this.participantService.findAll();
+		List<Participant> list = participantService.findAll();
 		assertThat("Lista deveria ter 2 elementos", list, hasSize(2));
 
 	}
