@@ -30,8 +30,6 @@ import com.uaijug.certificado.config.ConfigReportTemplateDir;
 
 public class PropertiesConfigModule extends AbstractModule {
 
-	private Properties properties;
-
 	@Override
 	protected void configure() {
 		try {
@@ -47,13 +45,11 @@ public class PropertiesConfigModule extends AbstractModule {
 		return "config.properties";
 	}
 
-	private Properties getProperties(String configFile) throws IOException {
-		if (properties == null) {
-			properties = new Properties();
+	protected Properties getProperties(String configFile) throws IOException {
+		Properties properties = new Properties();
 
-			properties.load(PropertiesConfigModuleTest.class.getClassLoader()
-					.getResourceAsStream(configFile));
-		}
+		properties.load(PropertiesConfigModuleTest.class.getClassLoader()
+				.getResourceAsStream(configFile));
 
 		return properties;
 	}

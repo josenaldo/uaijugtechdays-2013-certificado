@@ -1,5 +1,6 @@
 package com.uaijug.certificado.report;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -76,6 +77,11 @@ public class ParticipantReportGenerator extends
 
 		String encodedEmail = Base64.encodeBase64URLSafeString(participant
 				.getEmail().getBytes());
+
+		File generated = new File(generatedDir);
+		if (!generated.exists()) {
+			generated.mkdir();
+		}
 
 		String reportpath = generatedDir + encodedEmail + ".pdf";
 

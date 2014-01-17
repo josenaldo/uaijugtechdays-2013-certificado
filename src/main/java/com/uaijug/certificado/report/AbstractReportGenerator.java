@@ -1,5 +1,6 @@
 package com.uaijug.certificado.report;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -64,8 +65,10 @@ public abstract class AbstractReportGenerator<T> {
 			throws FileNotFoundException, JRException {
 		JRExporter exporter = new JRPdfExporter();
 		exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,
-				new FileOutputStream(reportName));
+
+		File file = new File(reportName);
+		FileOutputStream outputStream = new FileOutputStream(file);
+		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, outputStream);
 
 		exporter.exportReport();
 	}
