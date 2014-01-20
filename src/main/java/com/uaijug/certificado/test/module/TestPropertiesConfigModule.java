@@ -13,4 +13,9 @@ public class TestPropertiesConfigModule extends PropertiesConfigModule {
 	public String getConfigTestDataset(@Named("test.dataset") String property) {
 		return property;
 	}
+
+	@Override
+	public String getConfigFile() {
+		return "config.properties";
+	}
 }
