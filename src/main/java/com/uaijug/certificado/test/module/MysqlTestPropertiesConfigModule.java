@@ -1,9 +1,7 @@
 package com.uaijug.certificado.test.module;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
+import com.uaijug.certificado.module.loader.FilePropertiesLoader;
+import com.uaijug.certificado.module.loader.PropertiesLoader;
 
 public class MysqlTestPropertiesConfigModule extends TestPropertiesConfigModule {
 
@@ -13,13 +11,7 @@ public class MysqlTestPropertiesConfigModule extends TestPropertiesConfigModule 
 	}
 
 	@Override
-	protected Properties getProperties(String configFile) throws IOException {
-		Properties properties = new Properties();
-
-		InputStream inputStream = new FileInputStream(configFile);
-
-		properties.load(inputStream);
-
-		return properties;
+	protected PropertiesLoader getPropertiesLoader() {
+		return new FilePropertiesLoader();
 	}
 }

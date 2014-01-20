@@ -25,7 +25,7 @@ public class Generator {
 			generator.execute();
 
 		} catch (Exception e) {
-			log.error("Um erro derrubou o servidor de impress�o: ", e);
+			log.error("Um erro derrubou o gerador de relatório: ", e);
 			System.exit(1);
 		}
 	}

@@ -28,13 +28,16 @@ import com.uaijug.certificado.config.ConfigReportBackgroundPage2;
 import com.uaijug.certificado.config.ConfigReportGeneratedDir;
 import com.uaijug.certificado.config.ConfigReportParticipantTemplate;
 import com.uaijug.certificado.config.ConfigReportTemplateDir;
+import com.uaijug.certificado.module.loader.FilePropertiesLoader;
+import com.uaijug.certificado.module.loader.PropertiesLoader;
 
 public class PropertiesConfigModule extends AbstractModule {
 
 	@Override
 	protected void configure() {
 		try {
-			Properties properties = getProperties(getConfigFile());
+			String configFile = getConfigFile();
+			Properties properties = getProperties(configFile);
 			Names.bindProperties(binder(), properties);
 		} catch (IOException e) {
 			throw new IllegalArgumentException(
@@ -42,15 +45,16 @@ public class PropertiesConfigModule extends AbstractModule {
 		}
 	}
 
-	public String getConfigFile() {
+	protected String getConfigFile() {
 		return "d:\\config.properties";
 	}
 
-	protected Properties getProperties(String configFile) throws IOException {
-		Properties properties = new Properties();
+	protected PropertiesLoader getPropertiesLoader() {
+		return new FilePropertiesLoader();
+	}
 
-		properties.load(PropertiesConfigModuleTest.class.getClassLoader()
-				.getResourceAsStream(configFile));
+	protected Properties getProperties(String path) throws IOException {
+		Properties properties = getPropertiesLoader().loadProperties(path);
 
 		return properties;
 	}

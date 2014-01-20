@@ -7,10 +7,10 @@
 		<class>com.uaijug.certificado.model.Participant</class>
 		
 		<properties>
-			<property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver" />			
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />			
 			<property name="javax.persistence.jdbc.url"	value="jdbc:mysql://localhost:3306/techdays2013" />
-			<property name="javax.persistence.jdbc.user" value="sa" />
-			<property name="javax.persistence.jdbc.password" value="" />
+			<property name="javax.persistence.jdbc.user" value="techdays2013" />
+			<property name="javax.persistence.jdbc.password" value="techdays2013" />
 			<property name="eclipselink.ddl-generation" value="create-tables" />
       		<property name="eclipselink.ddl-generation.output-mode" value="database" />
 		</properties>
