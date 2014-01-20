@@ -1,7 +1,10 @@
 package com.uaijug.certificado.controller.command;
 
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
@@ -38,30 +41,30 @@ public class ParticipantReportCommandTest {
 	public void init() {
 		MockitoAnnotations.initMocks(this);
 
-		this.participants = Arrays.asList(new Participant("Pedro",
+		participants = Arrays.asList(new Participant("Pedro",
 				"pedro@bol.com.br"), new Participant("Mateus",
 				"mateus@bol.com.br"),
 				new Participant("Joao", "joao@bol.com.br"));
-		when(this.participantService.findAll()).thenReturn(this.participants);
+		when(participantService.findAll()).thenReturn(participants);
 
-		this.command = new ParticipantReportCommand();
-		this.command.setEmailService(this.emailService);
-		this.command
-				.setParticipantReportGenerator(this.participantReportGenerator);
-		this.command.setParticipantService(this.participantService);
+		command = new ParticipantReportCommand();
+		command.setEmailService(emailService);
+		command.setParticipantReportGenerator(participantReportGenerator);
+		command.setParticipantService(participantService);
+		command.setEmailMessageParticipant("participant-message.html");
 	}
 
 	@Test
 	public void testExecute() throws Exception {
 
-		this.command.execute(null);
-		verify(this.participantService).findAll();
+		command.execute(null);
+		verify(participantService).findAll();
 
-		verify(this.participantReportGenerator, times(this.participants.size()))
+		verify(participantReportGenerator, times(participants.size()))
 				.generate(any(Participant.class));
 
-		verify(this.emailService, times(this.participants.size())).sendMail(
-				anyString(), anyString(), anyString(), anyString());
+		verify(emailService, times(participants.size())).sendMail(anyString(),
+				anyString(), anyString(), anyString());
 
 	}
 

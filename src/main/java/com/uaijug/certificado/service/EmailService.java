@@ -96,7 +96,7 @@ public class EmailService {
 	public void sendMail(String to, String subject, String messageText,
 			String attachement) throws CannotSendEmailException {
 
-		Properties props = this.configureEmailProperties();
+		Properties props = configureEmailProperties();
 
 		// Criando sessão
 
@@ -104,22 +104,20 @@ public class EmailService {
 				new javax.mail.Authenticator() {
 					@Override
 					protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
-						return new PasswordAuthentication(
-								EmailService.this.username,
-								EmailService.this.password);
+						return new PasswordAuthentication(username, password);
 					}
 				});
 
 		try {
 			// Criando mensagem
 			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress(this.username));
+			message.setFrom(new InternetAddress(username));
 			message.setRecipients(Message.RecipientType.TO,
 					InternetAddress.parse(to));
 			message.setSubject(subject);
 
 			MimeBodyPart messageBodyPart = new MimeBodyPart();
-			messageBodyPart.setContent(messageText, this.textType);
+			messageBodyPart.setContent(messageText, textType);
 
 			Multipart multipart = new MimeMultipart();
 			multipart.addBodyPart(messageBodyPart);
@@ -145,9 +143,8 @@ public class EmailService {
 			message.setContent(multipart);
 
 			// criando conexão
-			Transport transport = session.getTransport(this.smtpTransportType);
-			transport.connect(this.smtpHost, this.smtpPort, this.username,
-					this.password);
+			Transport transport = session.getTransport(smtpTransportType);
+			transport.connect(smtpHost, smtpPort, username, password);
 			transport.sendMessage(message, message.getAllRecipients());
 			transport.close();
 
@@ -160,12 +157,12 @@ public class EmailService {
 	private Properties configureEmailProperties() {
 		Properties props = new Properties();
 
-		props.put("mail.smtp.user", this.username);
-		props.put("mail.smtp.host", this.smtpHost);
-		props.put("mail.smtp.port", this.smtpPort.toString());
-		props.put("mail.smtp.auth", this.smtpAuth);
-		props.put("mail.smtp.starttls.enable", this.starttlsEnable);
-		props.put("mail.mime.charset", this.charset);
+		props.put("mail.smtp.user", username);
+		props.put("mail.smtp.host", smtpHost);
+		props.put("mail.smtp.port", smtpPort.toString());
+		props.put("mail.smtp.auth", smtpAuth);
+		props.put("mail.smtp.starttls.enable", starttlsEnable);
+		props.put("mail.mime.charset", charset);
 		// props.put("mail.smtp.debug", "true");
 		// props.put("mail.smtp.socketFactory.port", this.smtpPort.toString());
 		// props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
@@ -174,39 +171,39 @@ public class EmailService {
 	}
 
 	public String getUsername() {
-		return this.username;
+		return username;
 	}
 
 	public String getPassword() {
-		return this.password;
+		return password;
 	}
 
 	public String getSmtpHost() {
-		return this.smtpHost;
+		return smtpHost;
 	}
 
 	public Integer getSmtpPort() {
-		return this.smtpPort;
+		return smtpPort;
 	}
 
 	public String getSmtpAuth() {
-		return this.smtpAuth;
+		return smtpAuth;
 	}
 
 	public String getSmtpTransportType() {
-		return this.smtpTransportType;
+		return smtpTransportType;
 	}
 
 	public String getStarttlsEnable() {
-		return this.starttlsEnable;
+		return starttlsEnable;
 	}
 
 	public String getCharset() {
-		return this.charset;
+		return charset;
 	}
 
 	public String getTextType() {
-		return this.textType;
+		return textType;
 	}
 
 }

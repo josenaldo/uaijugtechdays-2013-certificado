@@ -34,8 +34,8 @@ public class PropertiesConfigModule extends AbstractModule {
 	@Override
 	protected void configure() {
 		try {
-			Properties properties = this.getProperties(this.getConfigFile());
-			Names.bindProperties(this.binder(), properties);
+			Properties properties = getProperties(getConfigFile());
+			Names.bindProperties(binder(), properties);
 		} catch (IOException e) {
 			throw new IllegalArgumentException(
 					"Problema ao carregar o arquivo de configuração", e);
