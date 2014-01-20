@@ -13,6 +13,7 @@ import com.uaijug.certificado.config.ConfigDatabasePassword;
 import com.uaijug.certificado.config.ConfigDatabaseUrl;
 import com.uaijug.certificado.config.ConfigDatabaseUser;
 import com.uaijug.certificado.config.ConfigEmailCharset;
+import com.uaijug.certificado.config.ConfigEmailMessageParticipant;
 import com.uaijug.certificado.config.ConfigEmailPassword;
 import com.uaijug.certificado.config.ConfigEmailSmtpAuth;
 import com.uaijug.certificado.config.ConfigEmailSmtpHost;
@@ -42,7 +43,7 @@ public class PropertiesConfigModule extends AbstractModule {
 	}
 
 	public String getConfigFile() {
-		return "config.properties";
+		return "d:\\config.properties";
 	}
 
 	protected Properties getProperties(String configFile) throws IOException {
@@ -83,6 +84,13 @@ public class PropertiesConfigModule extends AbstractModule {
 	@Provides
 	@ConfigEmailCharset
 	public String getConfigEmailCharset(@Named("email.charset") String property) {
+		return property;
+	}
+
+	@Provides
+	@ConfigEmailMessageParticipant
+	public String getConfigEmailMessageParticipant(
+			@Named("email.message.participant") String property) {
 		return property;
 	}
 

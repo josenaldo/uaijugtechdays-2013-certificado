@@ -14,6 +14,7 @@ import com.uaijug.certificado.config.ConfigDatabasePassword;
 import com.uaijug.certificado.config.ConfigDatabaseUrl;
 import com.uaijug.certificado.config.ConfigDatabaseUser;
 import com.uaijug.certificado.config.ConfigEmailCharset;
+import com.uaijug.certificado.config.ConfigEmailMessageParticipant;
 import com.uaijug.certificado.config.ConfigEmailPassword;
 import com.uaijug.certificado.config.ConfigEmailSmtpAuth;
 import com.uaijug.certificado.config.ConfigEmailSmtpHost;
@@ -81,6 +82,12 @@ public class PropertiesConfigModuleTest {
 	@Test
 	public void testConfigEmailCharset(@ConfigEmailCharset String property) {
 		this.testConfig(property, "@ConfigEmailCharset");
+	}
+
+	@Test
+	public void testConfigEmailMessageParticipant(
+			@ConfigEmailMessageParticipant String property) {
+		this.testConfig(property, "@ConfigEmailMessageParticipant");
 	}
 
 	@Test
