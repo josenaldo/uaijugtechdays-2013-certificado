@@ -1,7 +1,5 @@
 package com.uaijug.certificado;
 
-import static org.junit.Assert.fail;
-
 import org.jukito.JukitoRunner;
 import org.jukito.UseModules;
 import org.junit.Test;
@@ -29,6 +27,5 @@ public class GeneratorTest extends AbstractIntegrationTest {
 
 		generator.execute();
 
-		fail("Colocar condições de sucesso");
 	}
 }

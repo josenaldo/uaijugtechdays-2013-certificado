@@ -1,7 +1,6 @@
 package com.uaijug.certificado.module;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
 import org.jukito.JukitoRunner;
@@ -44,9 +43,18 @@ public class PropertiesConfigModuleTest {
 				property.isEmpty(), is(false));
 	}
 
+	public void testConfigInteger(Integer property, String propertyName,
+			Integer expected) {
+		assertThat("A configuração " + propertyName + " não deveria ser nula",
+				property, is(notNullValue()));
+
+		assertThat("A configuração " + propertyName + " deveria ser "
+				+ expected, property, is(equalTo(expected)));
+	}
+
 	@Test
 	public void testConfigDatabaseDriver(@ConfigDatabaseDriver String property) {
-		testConfig(property, "@ConfigDatabaseDriver");
+		this.testConfig(property, "@ConfigDatabaseDriver");
 	}
 
 	@Test
@@ -62,94 +70,94 @@ public class PropertiesConfigModuleTest {
 
 	@Test
 	public void testConfigDatabaseUrl(@ConfigDatabaseUrl String property) {
-		testConfig(property, "@ConfigDatabaseUrl");
+		this.testConfig(property, "@ConfigDatabaseUrl");
 	}
 
 	@Test
 	public void testConfigDatabaseUser(@ConfigDatabaseUser String property) {
-		testConfig(property, "@ConfigDatabaseUser");
+		this.testConfig(property, "@ConfigDatabaseUser");
 	}
 
 	@Test
 	public void testConfigEmailCharset(@ConfigEmailCharset String property) {
-		testConfig(property, "@ConfigEmailCharset");
+		this.testConfig(property, "@ConfigEmailCharset");
 	}
 
 	@Test
 	public void testConfigEmailPassword(@ConfigEmailPassword String property) {
-		testConfig(property, "@ConfigEmailPassword");
+		this.testConfig(property, "@ConfigEmailPassword");
 	}
 
 	@Test
 	public void testConfigEmailSmtpAuth(@ConfigEmailSmtpAuth String property) {
-		testConfig(property, "@ConfigEmailSmtpAuth");
+		this.testConfig(property, "@ConfigEmailSmtpAuth");
 	}
 
 	@Test
 	public void testConfigEmailSmtpHost(@ConfigEmailSmtpHost String property) {
-		testConfig(property, "@ConfigEmailSmtpHost");
+		this.testConfig(property, "@ConfigEmailSmtpHost");
 	}
 
 	@Test
-	public void testConfigEmailSmtpPort(@ConfigEmailSmtpPort String property) {
-		testConfig(property, "@ConfigEmailSmtpPort");
+	public void testConfigEmailSmtpPort(@ConfigEmailSmtpPort Integer property) {
+		this.testConfigInteger(property, "@ConfigEmailSmtpPort", 10058);
 	}
 
 	@Test
 	public void testConfigEmailSmtpTransportType(
 			@ConfigEmailSmtpTransportType String property) {
-		testConfig(property, "@ConfigEmailSmtpTransportType");
+		this.testConfig(property, "@ConfigEmailSmtpTransportType");
 	}
 
 	@Test
 	public void testConfigEmailStartTlsEnabled(
 			@ConfigEmailStartTlsEnabled String property) {
-		testConfig(property, "@ConfigEmailStartTlsEnabled");
+		this.testConfig(property, "@ConfigEmailStartTlsEnabled");
 	}
 
 	@Test
 	public void testConfigEmailTextType(@ConfigEmailTextType String property) {
-		testConfig(property, "@ConfigEmailTextType");
+		this.testConfig(property, "@ConfigEmailTextType");
 	}
 
 	@Test
 	public void testConfigEmailUsername(@ConfigEmailUsername String property) {
-		testConfig(property, "@ConfigEmailUsername");
+		this.testConfig(property, "@ConfigEmailUsername");
 	}
 
 	@Test
 	public void testConfigPersistenceUnit(@ConfigPersistenceUnit String property) {
-		testConfig(property, "@ConfigPersistenceUnit");
+		this.testConfig(property, "@ConfigPersistenceUnit");
 	}
 
 	@Test
 	public void testConfigReportBackgroundPage1(
 			@ConfigReportBackgroundPage1 String property) {
-		testConfig(property, "@ConfigReportBackgroundPage1");
+		this.testConfig(property, "@ConfigReportBackgroundPage1");
 	}
 
 	@Test
 	public void testConfigReportBackgroundPage2(
 			@ConfigReportBackgroundPage2 String property) {
-		testConfig(property, "@ConfigReportBackgroundPage2");
+		this.testConfig(property, "@ConfigReportBackgroundPage2");
 	}
 
 	@Test
 	public void testConfigReportGeneratedDir(
 			@ConfigReportGeneratedDir String property) {
-		testConfig(property, "@ConfigReportGeneratedDir");
+		this.testConfig(property, "@ConfigReportGeneratedDir");
 	}
 
 	@Test
 	public void testConfigReportParticipantTemplate(
 			@ConfigReportParticipantTemplate String property) {
-		testConfig(property, "@ConfigReportParticipantTemplate");
+		this.testConfig(property, "@ConfigReportParticipantTemplate");
 	}
 
 	@Test
 	public void testConfigReportTemplateDir(
 			@ConfigReportTemplateDir String property) {
-		testConfig(property, "@ConfigReportTemplateDir");
+		this.testConfig(property, "@ConfigReportTemplateDir");
 	}
 
 }

@@ -27,8 +27,8 @@ public class ParticipantServiceIntegrationTest extends AbstractIntegrationTest {
 	@Test
 	public void testFindAll() {
 
-		List<Participant> list = participantService.findAll();
-		assertThat("Lista deveria ter 2 elementos", list, hasSize(2));
+		List<Participant> list = this.participantService.findAll();
+		assertThat("Lista deveria ter 3 elementos", list, hasSize(3));
 
 	}
 }

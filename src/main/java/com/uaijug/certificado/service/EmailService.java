@@ -1,7 +1,11 @@
 package com.uaijug.certificado.service;
 
+import java.io.File;
 import java.util.Properties;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.mail.Message;
@@ -62,7 +66,7 @@ public class EmailService {
 	/** A porta do servidor SMTP. */
 	@Inject
 	@ConfigEmailSmtpPort
-	private String smtpPort;
+	private Integer smtpPort;
 
 	@Inject
 	@ConfigEmailSmtpTransportType
@@ -78,6 +82,12 @@ public class EmailService {
 	@ConfigEmailTextType
 	private String textType;
 
+	/**
+	 * @param to
+	 * @param subject
+	 * @param messageText
+	 * @throws CannotSendEmailException
+	 */
 	public void sendMail(String to, String subject, String messageText)
 			throws CannotSendEmailException {
 		this.sendMail(to, subject, messageText, null);
@@ -89,6 +99,7 @@ public class EmailService {
 		Properties props = this.configureEmailProperties();
 
 		// Criando sessão
+
 		Session session = Session.getInstance(props,
 				new javax.mail.Authenticator() {
 					@Override
@@ -107,16 +118,36 @@ public class EmailService {
 					InternetAddress.parse(to));
 			message.setSubject(subject);
 
-			MimeBodyPart mimeBodyPart = new MimeBodyPart();
-			mimeBodyPart.setContent(messageText, this.textType);
-			Multipart mps = new MimeMultipart();
-			mps.addBodyPart(mimeBodyPart);
+			MimeBodyPart messageBodyPart = new MimeBodyPart();
+			messageBodyPart.setContent(messageText, this.textType);
 
-			message.setContent(mps);
+			Multipart multipart = new MimeMultipart();
+			multipart.addBodyPart(messageBodyPart);
+
+			if (attachement != null) {
+				File fileAttachment = new File(attachement);
+
+				if (!fileAttachment.exists()) {
+					throw new IllegalArgumentException(
+							"Arquivo a ser anexo não existe. Informe o arquivo correto. Caminho inválido: "
+									+ fileAttachment.getAbsolutePath());
+				}
+
+				DataSource source = new FileDataSource(fileAttachment);
+
+				messageBodyPart = new MimeBodyPart();
+
+				messageBodyPart.setDataHandler(new DataHandler(source));
+				messageBodyPart.setFileName(fileAttachment.getName());
+				multipart.addBodyPart(messageBodyPart);
+			}
+
+			message.setContent(multipart);
 
 			// criando conexão
 			Transport transport = session.getTransport(this.smtpTransportType);
-			transport.connect(this.smtpHost, this.username, this.password);
+			transport.connect(this.smtpHost, this.smtpPort, this.username,
+					this.password);
 			transport.sendMessage(message, message.getAllRecipients());
 			transport.close();
 
@@ -129,11 +160,16 @@ public class EmailService {
 	private Properties configureEmailProperties() {
 		Properties props = new Properties();
 
+		props.put("mail.smtp.user", this.username);
+		props.put("mail.smtp.host", this.smtpHost);
+		props.put("mail.smtp.port", this.smtpPort.toString());
 		props.put("mail.smtp.auth", this.smtpAuth);
 		props.put("mail.smtp.starttls.enable", this.starttlsEnable);
-		props.put("mail.smtp.host", this.smtpHost);
-		props.put("mail.smtp.port", this.smtpPort);
 		props.put("mail.mime.charset", this.charset);
+		// props.put("mail.smtp.debug", "true");
+		// props.put("mail.smtp.socketFactory.port", this.smtpPort.toString());
+		// props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
+		// props.put("mail.smtp.socketFactory.fallback", "false");
 		return props;
 	}
 
@@ -149,7 +185,7 @@ public class EmailService {
 		return this.smtpHost;
 	}
 
-	public String getSmtpPort() {
+	public Integer getSmtpPort() {
 		return this.smtpPort;
 	}
 

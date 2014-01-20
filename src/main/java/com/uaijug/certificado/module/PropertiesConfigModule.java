@@ -33,8 +33,8 @@ public class PropertiesConfigModule extends AbstractModule {
 	@Override
 	protected void configure() {
 		try {
-			Properties properties = getProperties(getConfigFile());
-			Names.bindProperties(binder(), properties);
+			Properties properties = this.getProperties(this.getConfigFile());
+			Names.bindProperties(this.binder(), properties);
 		} catch (IOException e) {
 			throw new IllegalArgumentException(
 					"Problema ao carregar o arquivo de configuração", e);
@@ -109,9 +109,9 @@ public class PropertiesConfigModule extends AbstractModule {
 
 	@Provides
 	@ConfigEmailSmtpPort
-	public String getConfigEmailSmtpPort(
-			@Named("email.smtp.port") String property) {
-		return property;
+	public int getConfigEmailSmtpPort(@Named("email.smtp.port") String property) {
+
+		return Integer.valueOf(property);
 	}
 
 	@Provides
