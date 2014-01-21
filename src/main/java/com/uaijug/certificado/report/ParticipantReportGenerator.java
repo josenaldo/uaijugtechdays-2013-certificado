@@ -55,21 +55,20 @@ public class ParticipantReportGenerator extends
 	@Override
 	protected Map<String, Object> getParameters() {
 		Map<String, Object> parameters = new HashMap<String, Object>();
-		log.debug("Preparando background da página 1");
-		String page1 = reportTemplateDir + reportBackgroundPage1;
-		InputStream page1Stream = getResourceInputStream(page1);
+
+		String page1 = this.reportTemplateDir + this.reportBackgroundPage1;
+		InputStream page1Stream = this.getResourceInputStream(page1);
 		parameters.put("BACKGROUND1", page1Stream);
 
-		log.debug("Preparando background da página 2");
-		String page2 = reportTemplateDir + reportBackgroundPage2;
-		InputStream page2Stream = getResourceInputStream(page2);
+		String page2 = this.reportTemplateDir + this.reportBackgroundPage2;
+		InputStream page2Stream = this.getResourceInputStream(page2);
 		parameters.put("BACKGROUND2", page2Stream);
 		return parameters;
 	}
 
 	@Override
 	protected String getTemplatePath() {
-		return reportTemplateDir + participantReportTemplate;
+		return this.reportTemplateDir + this.participantReportTemplate;
 	}
 
 	@Override
@@ -78,12 +77,12 @@ public class ParticipantReportGenerator extends
 		String encodedEmail = Base64.encodeBase64URLSafeString(participant
 				.getEmail().getBytes());
 
-		File generated = new File(generatedDir);
+		File generated = new File(this.generatedDir);
 		if (!generated.exists()) {
 			generated.mkdir();
 		}
 
-		String reportpath = generatedDir + encodedEmail + ".pdf";
+		String reportpath = this.generatedDir + encodedEmail + ".pdf";
 
 		return reportpath;
 	}
